@@ -68,7 +68,7 @@
 </style>
 </head>
 
-<body> 
+<body>
 
 <!-- ❄️ 40 sneeuwvlokken -->
 <script>
@@ -91,16 +91,15 @@
   <p class="slide-in">En maak er een fantastisch orgeljaar van!</p>
 
   <!-- 🎵 YouTube met fade‑in -->
- <iframe id="player" width="560" height="315"
-  src="https://www.youtube-nocookie.com/embed/sHsaKK1fZQA?enablejsapi=1&rel=0&loop=1&playlist=sHsaKK1fZQA"
-  frameborder="0"
-  allow="encrypted-media"
-  allowfullscreen>
-</iframe>
-
+  <iframe id="player" width="560" height="315"
+    src="https://www.youtube.com/embed/sHsaKK1fZQA?enablejsapi=1&rel=0&loop=1&playlist=sHsaKK1fZQA"
+    frameborder="0"
+    allow="encrypted-media"
+    allowfullscreen>
+  </iframe>
 </div>
 
-<!-- 🎵 Fade‑in script -->
+<!-- 🎵 YouTube API + autoplay op mute -->
 <script>
   let player;
 
@@ -111,10 +110,8 @@
   }
 
   function onPlayerReady(event) {
-    // Video start op mute (verplicht)
-	// event.target.unMute();    mag niet, verboden vóór user‑actie
-    event.target.playVideo();
-    event.target.setVolume(0);
+    event.target.playVideo();   // video start stil
+    event.target.setVolume(0);  // volume = 0
   }
 
   // Laad de YouTube API
@@ -129,12 +126,12 @@
     if (player && player.unMute) { 
       player.unMute(); 
 
-      let volume = 100;
+      let volume = 5;
       player.setVolume(volume);
 
       let fade = setInterval(() => {
         if (volume < 100) {
-          volume += 4;
+          volume += 3;
           player.setVolume(volume);
         } else {
           clearInterval(fade);
@@ -143,6 +140,7 @@
     } 
   }, { once: true });
 </script>
+
 </body>
 </html>
 
