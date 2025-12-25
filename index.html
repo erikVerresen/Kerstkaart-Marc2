@@ -57,6 +57,24 @@
     0% { transform: translateY(-10vh); }
     100% { transform: translateY(110vh); }
   }
+    /* ✨ Binnenzwevende tekst */
+.slide-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideIn 1.5s ease-out forwards;
+  animation-delay: 1s; /* wacht 1 seconde voor effect */
+  font-style: italic;
+  font-size: 1.2em;
+  color: #ffdf80; /* zacht goudkleurig */
+}
+@keyframes slideIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  
 </style>
 </head>
 
