@@ -15,9 +15,7 @@
                 no-repeat center center fixed;
     background-size: cover;
     overflow-x: hidden;
-}
-
-
+  }
 
   .card {
     background: rgba(0, 0, 0, 0.55);
@@ -49,27 +47,28 @@
     0% { transform: translateY(-10vh); }
     100% { transform: translateY(110vh); }
   }
-    /* ✨ Binnenzwevende tekst */
 
-.slide-in {
-  opacity: 0;
-  transform: translateY(20px);
-  animation: slideIn 1.5s ease-out forwards;
-  animation-delay: 1s;             /* wacht 1 seconde voor effect */
-  font-style: italic;
-  font-size: 1.2em;
-  color: #ffdf80;             /* zacht goudkleurig */
-}
-@keyframes slideIn {
+  /* ✨ Binnenzwevende tekst */
+  .slide-in {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: slideIn 1.5s ease-out forwards;
+    animation-delay: 1s;
+    font-style: italic;
+    font-size: 1.2em;
+    color: #ffdf80;
+  }
+
+  @keyframes slideIn {
     to {
       opacity: 1;
       transform: translateY(0);
     }
   }
- </style>
+</style>
 </head>
 
-
+<body>
 
 <!-- ❄️ 40 sneeuwvlokken -->
 <script>
@@ -89,7 +88,7 @@
   <h1>Fijne Kerst, Marc!</h1>
   <p>Geniet van deze muziek terwijl de sneeuw zachtjes valt.</p>
   <p><em>En een gezond, gelukkig nieuwjaar!</em></p>
-  <p class="slide-in">En maak er een fantastisch orgeljaar van!</p> 
+  <p class="slide-in">En maak er een fantastisch orgeljaar van!</p>
 
   <!-- 🎵 YouTube met fade‑in -->
   <iframe id="player" width="560" height="315"
@@ -102,12 +101,9 @@
 
 <!-- 🎵 Fade‑in script -->
 <script>
-  // Wacht tot de YouTube API geladen is
   function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-      events: {
-        'onReady': onPlayerReady
-      }
+      events: { 'onReady': onPlayerReady }
     });
   }
 
@@ -117,7 +113,6 @@
     let volume = 20;
     event.target.setVolume(volume);
 
-    // Fade-in over 5 seconden
     let fade = setInterval(() => {
       if (volume < 100) {
         volume += 2;
@@ -128,22 +123,21 @@
     }, 100);
   }
 
-  // Laad de YouTube API
   let tag = document.createElement('script');
   tag.src = "https://www.youtube.com/iframe_api";
   document.body.appendChild(tag);
 </script>
 
+<script>
+  document.addEventListener("click", function() { 
+    if (player && player.unMute) { 
+      player.unMute(); 
+      player.setVolume(100); 
+    } 
+  }, { once: true });
+</script>
 
-
-<script> document.addEventListener("click", function() { 
-  if (player && player.unMute) { 
-    player.unMute(); 
-    player.setVolume(100); 
-  } 
-}, { once: true });
-</script> 
-//</body>
+</body>
 </html>
 
  
