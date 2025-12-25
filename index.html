@@ -47,28 +47,10 @@
     0% { transform: translateY(-10vh); }
     100% { transform: translateY(110vh); }
   }
-
-  /* ✨ Binnenzwevende tekst */
-  .slide-in {
-    opacity: 0;
-    transform: translateY(20px);
-    animation: slideIn 1.5s ease-out forwards;
-    animation-delay: 1s;
-    font-style: italic;
-    font-size: 1.2em;
-    color: #ffdf80;
-  }
-
-  @keyframes slideIn {
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
 </style>
 </head>
 
-<body> 
+<body>
 
 <!-- ❄️ 40 sneeuwvlokken -->
 <script>
@@ -85,36 +67,43 @@
 </script>
 
 <div class="card">
-  <h1>Fijne Kerst, Marc!</h1>
+  <h1>Fijne Kerst!</h1>
   <p>Geniet van deze muziek terwijl de sneeuw zachtjes valt.</p>
-  <p><em>En een gezond, gelukkig nieuwjaar!</em></p>
-  <p class="slide-in">En maak er een fantastisch orgeljaar van!</p>
 
   <!-- 🎵 YouTube met fade‑in -->
- <iframe id="player" width="560" height="315"
-  src="https://www.youtube-nocookie.com/embed/sHsaKK1fZQA?enablejsapi=1&rel=0&loop=1&playlist=sHsaKK1fZQA"
-  frameborder="0"
-  allow="encrypted-media"
-  allowfullscreen>
-</iframe>
-
+  <iframe id="player" width="560" height="315"
+    src="https://www.youtube-nocookie.com/embed/sHsaKK1fZQA?enablejsapi=1&mute=1"
+    frameborder="0"
+    allow="autoplay; encrypted-media"
+    allowfullscreen>
+  </iframe>
 </div>
 
 <!-- 🎵 Fade‑in script -->
 <script>
-  let player;
-
+  // Wacht tot de YouTube API geladen is
   function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-      events: { 'onReady': onPlayerReady }
+      events: {
+        'onReady': onPlayerReady
+      }
     });
   }
 
   function onPlayerReady(event) {
-    // Video start op mute (verplicht)
-	// event.target.unMute();    mag niet, verboden vóór user‑actie
     event.target.playVideo();
-    event.target.setVolume(0);
+    let volume = 20;
+    event.target.setVolume(volume);
+
+    // Fade-in over 5 seconden
+    let fade = setInterval(() => {
+      if (volume < 100) {
+        volume += 2;
+        event.target.setVolume(volume);
+      } else {
+        clearInterval(fade);
+      }
+    }, 100);
   }
 
   // Laad de YouTube API
@@ -123,29 +112,8 @@
   document.body.appendChild(tag);
 </script>
 
-<!-- 🔊 Klik om geluid te activeren + fade‑in -->
-<script>
-  document.addEventListener("click", function() { 
-    if (player && player.unMute) { 
-      player.unMute(); 
-
-      let volume = 100;
-      player.setVolume(volume);
-
-      let fade = setInterval(() => {
-        if (volume < 100) {
-          volume += 4;
-          player.setVolume(volume);
-        } else {
-          clearInterval(fade);
-        }
-      }, 120);
-    } 
-  }, { once: true });
-</script>
 </body>
 </html>
-
 
 
 
