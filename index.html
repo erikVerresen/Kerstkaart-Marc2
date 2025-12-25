@@ -91,6 +91,7 @@
   }
 
   function onPlayerReady(event) {
+    event.target.unMute();
     event.target.playVideo();
     let volume = 20;
     event.target.setVolume(volume);
