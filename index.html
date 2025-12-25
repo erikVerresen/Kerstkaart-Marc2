@@ -65,27 +65,10 @@
       transform: translateY(0);
     }
   }
-
-  /* 🔘 Startknop */
-  #startButton {
-    background: #ffdf80;
-    border: none;
-    padding: 15px 25px;
-    font-size: 1.2em;
-    border-radius: 8px;
-    cursor: pointer;
-    margin-top: 20px;
-    font-weight: bold;
-    transition: 0.3s;
-  }
-
-  #startButton:hover {
-    background: #ffe9a8;
-  }
 </style>
 </head>
 
-<body>
+<body> 
 
 <!-- ❄️ 40 sneeuwvlokken -->
 <script>
@@ -107,26 +90,31 @@
   <p><em>En een gezond, gelukkig nieuwjaar!</em></p>
   <p class="slide-in">En maak er een fantastisch orgeljaar van!</p>
 
-  <!-- 🔘 Startknop -->
-  <button id="startButton">Klik om muziek te starten</button>
+  <!-- 🎵 YouTube met fade‑in -->
+ <iframe id="player" width="560" height="315"
+  src="https://www.youtube-nocookie.com/embed/sHsaKK1fZQA?enablejsapi=1&rel=0&loop=1&playlist=sHsaKK1fZQA"
+  frameborder="0"
+  allow="encrypted-media"
+  allowfullscreen>
+</iframe>
 
-  <!-- 🎵 YouTube (start NIET automatisch) -->
-  <iframe id="player" width="560" height="315"
-    src="https://www.youtube.com/embed/sHsaKK1fZQA?enablejsapi=1&rel=0&loop=1&playlist=sHsaKK1fZQA"
-    frameborder="0"
-    allow="encrypted-media"
-    allowfullscreen>
-  </iframe>
 </div>
 
-<!-- 🎵 YouTube API -->
+<!-- 🎵 Fade‑in script -->
 <script>
   let player;
 
   function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
-      events: { 'onReady': () => {} }
+      events: { 'onReady': onPlayerReady }
     });
+  }
+
+  function onPlayerReady(event) {
+    // Video start op mute (verplicht)
+	// event.target.unMute();    mag niet, verboden vóór user‑actie
+    event.target.playVideo();
+    event.target.setVolume(0);
   }
 
   // Laad de YouTube API
@@ -135,32 +123,26 @@
   document.body.appendChild(tag);
 </script>
 
-<!-- 🔊 Startknop activeert video + geluid + fade-in -->
+<!-- 🔊 Klik om geluid te activeren + fade‑in -->
 <script>
-  document.getElementById("startButton").addEventListener("click", function() {
+  document.addEventListener("click", function() { 
+    if (player && player.unMute) { 
+      player.unMute(); 
 
-    if (player && player.playVideo) {
-      player.playVideo();
-      player.unMute();
-
-      let volume = 5;
+      let volume = 100;
       player.setVolume(volume);
 
       let fade = setInterval(() => {
         if (volume < 100) {
-          volume += 3;
+          volume += 4;
           player.setVolume(volume);
         } else {
           clearInterval(fade);
         }
       }, 120);
-    }
-
-    // Verberg de knop na klikken
-    this.style.display = "none";
-  });
+    } 
+  }, { once: true });
 </script>
-
 </body>
 </html>
 
