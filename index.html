@@ -112,6 +112,7 @@
 
   function onPlayerReady(event) {
     // Video start op mute (verplicht)
+	event.target.unMute();
     event.target.playVideo();
     event.target.setVolume(0);
   }
@@ -128,12 +129,12 @@
     if (player && player.unMute) { 
       player.unMute(); 
 
-      let volume = 10;
+      let volume = 20;
       player.setVolume(volume);
 
       let fade = setInterval(() => {
         if (volume < 100) {
-          volume += 3;
+          volume += 4;
           player.setVolume(volume);
         } else {
           clearInterval(fade);
