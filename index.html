@@ -15,6 +15,24 @@
                 no-repeat center center fixed;
     background-size: cover;
     overflow-x: hidden;
+    /* ✨ Binnenzwevende tekst */
+.slide-in {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideIn 1.5s ease-out forwards;
+  animation-delay: 1s; /* wacht 1 seconde voor effect */
+  font-style: italic;
+  font-size: 1.2em;
+  color: #ffdf80; /* zacht goudkleurig */
+}
+
+@keyframes slideIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
   }
 
   .card {
@@ -67,8 +85,10 @@
 </script>
 
 <div class="card">
-  <h1>Fijne Kerst!</h1>
+  <h1>Fijne Kerst, Marc!</h1>
   <p>Geniet van deze muziek terwijl de sneeuw zachtjes valt.</p>
+  <p><em>En een gezond, gelukkig nieuwjaar!</em></p>
+  <p class="slide-in">En maak er een fantastisch orgeljaar van!</p> 
 
   <!-- 🎵 YouTube met fade‑in -->
   <iframe id="player" width="560" height="315"
